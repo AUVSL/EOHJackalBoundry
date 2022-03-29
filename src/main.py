@@ -71,7 +71,7 @@ class Boundry:
         else:
             self.stop = False
 
-    def pub(self):
+    def step(self):
         twist = Twist()
         twist.linear.x = 0
         twist.angular.z = 0
@@ -87,6 +87,6 @@ if __name__ == '__main__':
     rate = rospy.Rate(120)
 
     while not rospy.is_shutdown():
-        b.pub()
+        b.step()
 
         rate.sleep()
