@@ -13,7 +13,7 @@ from tf.transformations import euler_from_quaternion
 class Boundry:
     def __init__(self):
         self.sub = rospy.Subscriber("/odometry/filtered", Odometry, self.callback)
-        self.pub = rospy.Publisher("/cmd_vel", Twist, queue_size=10)
+        self.pub = rospy.Publisher("/jackal_velocity_controller/cmd_vel", Twist, queue_size=10)
         self.joy_sub = rospy.Subscriber("/bluetooth_teleop/joy", Joy, self.joy_callback)
 
         self.reset_button_idx = [4, 5, 9, 10]
