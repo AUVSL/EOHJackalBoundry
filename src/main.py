@@ -25,7 +25,7 @@ class Boundry:
         pressed = []
 
         for i in self.reset_button_idx:
-            pressed.append(msg.buttons[i])
+            pressed.append(msg.buttons[i] > .5)
 
         # print pressed
 
