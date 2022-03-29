@@ -72,11 +72,15 @@ class Boundry:
             self.stop = False
 
     def step(self):
-        twist = Twist()
-        twist.linear.x = 0
-        twist.angular.z = 0
 
-        self.pub.publish(twist)
+        if self.stop:
+            twist = Twist()
+            twist.linear.x = 0
+            twist.angular.z = 0
+
+            print "STOPPING"
+
+            self.pub.publish(twist)
 
 
 if __name__ == '__main__':
