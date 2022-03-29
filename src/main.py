@@ -19,6 +19,7 @@ class Boundry:
         self.reset_button_idx = [4, 5, 9, 10]
 
         self.pose_transform = None
+        self.stop = False
 
     def joy_callback(self, msg):
         pressed = []
@@ -26,7 +27,7 @@ class Boundry:
         for i in self.reset_button_idx:
             pressed.append(msg.buttons[i])
 
-        print pressed
+        # print pressed
 
         if np.all(pressed):
             self.pose_transform = None
@@ -60,17 +61,22 @@ class Boundry:
         pose = np.matmul(pose, self.pose_transform)
         x, y = pose[0], pose[1]
 
-        print x, y
+        print x, y, theta
 
         width = rospy.get_param("width", 10)
         height = rospy.get_param("height", 10)
 
-        if x < -width / 2 or x > width / 2 or y < 0 or y > height:
-            twist = Twist()
-            twist.linear.x = 0
-            twist.angular.z = 0
+        if x < -width / 2 or x > width / 2 or y < -.1 or y > height:
+            self.stop = True
+        else:
+            self.stop = False
 
-            self.pub.publish(twist)
+    def pub(self):
+        twist = Twist()
+        twist.linear.x = 0
+        twist.angular.z = 0
+
+        self.pub.publish(twist)
 
 
 if __name__ == '__main__':
@@ -78,4 +84,9 @@ if __name__ == '__main__':
 
     b = Boundry()
 
-    rospy.spin()
+    rate = rospy.Rate(120)
+
+    while not rospy.is_shutdown():
+        b.pub()
+
+        rate.sleep()
