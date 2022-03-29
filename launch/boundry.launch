@@ -3,5 +3,5 @@
     <param name="height" value="10.0"/>
 
 
-    <node pkg="EOHJackalBoundry" name="main.py" type="main.py" output="screen"/>
+    <node pkg="EOHJackalBoundry" name="boundry" type="main.py" output="screen"/>
 </launch>
