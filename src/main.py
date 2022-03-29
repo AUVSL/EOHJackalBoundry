@@ -27,7 +27,7 @@ class Boundry:
         for i in self.reset_button_idx:
             pressed.append(msg.buttons[i] > .5)
 
-        # print pressed
+        print pressed
 
         if np.all(pressed):
             self.pose_transform = None
@@ -57,16 +57,16 @@ class Boundry:
 
             self.pose_transform = np.matmul(R, T)
 
-        pose = np.asarray([x, y, 1])
-        pose = np.matmul(pose, self.pose_transform)
-        x, y = pose[0], pose[1]
+        pose = np.asarray([[x], [y], 1])
+        pose = np.matmul(self.pose_transform, pose)
+        x, y = pose[0][0], pose[1][0]
 
         print x, y, theta
 
         width = rospy.get_param("width", 10)
         height = rospy.get_param("height", 10)
 
-        if x < -width / 2 or x > width / 2 or y < -.1 or y > height:
+        if y < -width / 2 or y > width / 2 or x < -.1 or x > height:
             self.stop = True
         else:
             self.stop = False
@@ -77,8 +77,6 @@ class Boundry:
             twist = Twist()
             twist.linear.x = 0
             twist.angular.z = 0
-
-            print "STOPPING"
 
             self.pub.publish(twist)
 
