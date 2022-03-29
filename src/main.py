@@ -27,7 +27,7 @@ class Boundry:
         for i in self.reset_button_idx:
             pressed.append(msg.buttons[i] > .5)
 
-        print pressed
+        # print pressed
 
         if np.all(pressed):
             self.pose_transform = None
