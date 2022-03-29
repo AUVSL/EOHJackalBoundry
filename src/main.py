@@ -57,7 +57,7 @@ class Boundry:
 
             self.pose_transform = np.matmul(R, T)
 
-        pose = np.asarray([[x], [y], 1])
+        pose = np.asarray([[x], [y], [1]])
         pose = np.matmul(self.pose_transform, pose)
         x, y = pose[0][0], pose[1][0]
 
