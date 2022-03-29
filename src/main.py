@@ -29,10 +29,11 @@ class Boundry:
             self.pose_transform = None
 
     def callback(self, msg):
-        pose = msg.pose.pose.position
+        pose = msg.pose.pose
 
-        x = pose.x
-        y = pose.y
+        x = pose.position.x
+        y = pose.position.y
+
         orientation_q = pose.orientation
         orientation_list = [orientation_q.x, orientation_q.y, orientation_q.z, orientation_q.w]
         (_, _, theta) = euler_from_quaternion(orientation_list)
