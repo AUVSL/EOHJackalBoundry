@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# coding=utf-8
+
 import numpy as np
 
 import rospy
@@ -13,7 +16,7 @@ class Boundry:
         self.pub = rospy.Publisher("/cmd_vel", Twist, queue_size=10)
         self.joy_sub = rospy.Subscriber("/bluetooth_teleop/joy", Joy, self.joy_callback)
 
-        self.reset_button_idx = [6,5,3,2,1]
+        self.reset_button_idx = [6, 5, 3, 2, 1]
 
         self.pose_transform = None
 
