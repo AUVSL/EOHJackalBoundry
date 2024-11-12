@@ -1,0 +1,25 @@
+name: documentation
+
+on: [push, workflow_dispatch, workflow_call]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Trigger by ${{ github.actor }} with ${{ github.event_name }} event"
+  docs:
+    needs: build
+    uses: AUVSL/shared_workflows/.github/workflows/autodoc.yml@main
+    with:
+      run-name: 'Running autodoc'
+      src: 'src/'
+      python-version: '3.11'
+    secrets:
+      GH_PAT: ${{ secrets.GH_PAT }}
