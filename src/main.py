@@ -61,7 +61,7 @@ class Boundry:
         pose = np.matmul(self.pose_transform, pose)
         x, y = pose[0][0], pose[1][0]
 
-        print x, y, theta
+        print(x, y, theta)
 
         width = rospy.get_param("width", 10)
         height = rospy.get_param("height", 10)
